@@ -1,5 +1,6 @@
+.env.local
+.vscode
 built/
 node_modules/
-.env.local
 event.json
 context.json
