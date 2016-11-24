@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "./built",
+        "allowJs": true,
+        "target": "es6"
+    },
+    "files": [
+        "./index.d.ts"
+    ],
+    "include": [
+        "./**/*.ts"
+    ]
+}
