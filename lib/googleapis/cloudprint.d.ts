@@ -62,7 +62,7 @@ declare module google {
                     },
                     callback: (
                         error: any,
-                        body: Printer,
+                        body: PrintersResponse,
                         response: any
                     ) => void) => Request;
             };
@@ -90,6 +90,7 @@ declare module google {
         export interface PrintersResponse {
             success: boolean,
             request: any,
+            message?: string,
             printers: Printer[],
             xsrf_token: string
         }

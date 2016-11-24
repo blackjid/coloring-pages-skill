@@ -37,8 +37,7 @@ export default class ColoringPages {
     let image = results[0];
     let printer = results[1];
 
-    console.log(image)
-    console.log(printer)
+    return this.printPage(printer, image['title'], image['link'])
   }
 
   private async searchImage(searchTerm: string): Promise<{}>{
@@ -70,6 +69,23 @@ export default class ColoringPages {
       this.cloudprint.printers.search({}, function(err, resp){
         var printer = resp.printers[0]
         resolve(printer);
+      })
+    });
+  }
+
+  private async printPage(printer, title, link){
+    return new Promise((resolve, reject) => {
+      var job = {
+        printerid: printer.id,
+        title: title,
+        ticket: '{"version": "1.0","print": {}}',
+        content: link,
+        contentType: 'url'
+      };
+
+      this.cloudprint.jobs.submit(job, function(err, resp){
+        if(resp.success === true) resolve();
+        else if(resp.success === false) reject(resp.message);
       })
     });
   }
