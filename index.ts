@@ -3,7 +3,7 @@ const CSE_CX = process.env['CSE_CX'];
 const CSE_API_KEY = process.env['CSE_API_KEY'];
 
 import * as Alexa from 'alexa-sdk';
-import ColoringPages from './coloring-pages'
+import { ColoringPages } from './coloring-pages'
 
 export function handler(event, context, callback){
   var alexa = Alexa.handler(event, context);
