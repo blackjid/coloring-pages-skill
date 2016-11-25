@@ -41,6 +41,8 @@ export default class ColoringPages {
   }
 
   private async searchImage(searchTerm: string): Promise<{}>{
+    let startIndex = Math.floor(Math.random() * 60)
+
     const options = {
       cx: this.cseCX,
       auth: this.cseApiKey,
@@ -48,6 +50,8 @@ export default class ColoringPages {
       searchType: SEARCH_TYPE,
       imgSize: IMAGE_SIZE,
       imgType: IMAGE_TYPE,
+      num: 1,
+      start: startIndex
     }
 
     return new Promise((resolve, reject) => {
@@ -57,7 +61,7 @@ export default class ColoringPages {
         }
         if (resp.items && resp.items.length > 0) {
           let images = resp.items;
-          let image = images[Math.floor(Math.random() * images.length)]
+          let image = images[0]
           resolve(image);
         }
       });
