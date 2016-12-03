@@ -1,6 +1,7 @@
 .env.local
 .vscode
 built/
+dist/
 node_modules/
 event.json
 context.json

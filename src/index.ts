@@ -6,7 +6,7 @@ import * as Alexa from 'alexa-sdk';
 import { ColoringPages } from './coloring-pages'
 
 export function handler(event, context, callback){
-  var alexa = Alexa.handler(event, context);
+  var alexa = Alexa.handler(event, context, callback);
   alexa.registerHandlers(handlers);
   alexa.appId = ALEXA_APP_ID;
   alexa.execute();
