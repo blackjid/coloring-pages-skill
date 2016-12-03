@@ -1,5 +1,6 @@
 import * as google from 'googleapis';
 import '../lib/googleapis/cloudprint';
+import { PrinterErrors } from './printer';
 
 const SEARCH_TYPE = 'image';
 const IMAGE_SIZE = 'xlarge';
@@ -71,6 +72,12 @@ export default class ColoringPages {
   private async searchPrinter(){
     return new Promise((resolve, reject) => {
       this.cloudprint.printers.search({}, function(err, resp){
+
+        if(typeof resp === 'string' && /Error 403/.test(resp)){
+          reject(PrinterErrors.USER_CREDENTIAL_REQUIRED);
+          return;
+        }
+
         var printer = resp.printers[0]
         resolve(printer);
       })

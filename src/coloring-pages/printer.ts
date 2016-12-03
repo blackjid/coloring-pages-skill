@@ -1,0 +1,3 @@
+export const PrinterErrors = {
+    USER_CREDENTIAL_REQUIRED: 'USER_CREDENTIAL_REQUIRED'
+}
