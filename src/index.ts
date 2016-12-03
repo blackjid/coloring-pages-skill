@@ -19,7 +19,7 @@ const handlers: Alexa.Handlers = {
     let user: Alexa.SessionUser = this.event.session.user;
 
     if(!user.accessToken){
-      this.emit(':tell', 'You need to link the skill to your Google account');
+      this.emit(':tellWithLinkAccountCard', 'Please go to your Alexa app to link your Google account.');
     }
     // Check search query
     var searchTerm = intent.slots.drawings.value;
@@ -36,7 +36,7 @@ const handlers: Alexa.Handlers = {
       .catch((err) => {
         switch(err){
           case PrinterErrors.USER_CREDENTIAL_REQUIRED:
-            this.emit(':tell', 'Please check the Alexa application to see if your Google account is correctly linked');
+            this.emit(':tellWithLinkAccountCard', 'Please go to your Alexa app to link your Google account.');
           default:
             this.emit(':tell', 'Ups!, something went wrong');
         }
