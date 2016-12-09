@@ -1,0 +1,13 @@
+{
+  "intents": [
+    {
+      "intent": "PrintIntent",
+      "slots": [
+        {
+          "name": "drawings",
+          "type": "LIST_OF_DRAWINGS"
+        }
+      ]
+    }
+  ]
+}

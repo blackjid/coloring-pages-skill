@@ -1,0 +1,11 @@
+PrintIntent print a {drawings}
+PrintIntent print me a {drawings}
+PrintIntent print {drawings}
+PrintIntent print the {drawings}
+PrintIntent print some {drawings}
+
+PrintIntent get me a {drawings}
+PrintIntent get me me a {drawings}
+PrintIntent get me {drawings}
+PrintIntent get me the {drawings}
+PrintIntent get me some {drawings}
