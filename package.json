@@ -6,10 +6,7 @@
   "scripts": {
     "watch": "tsc && concurrently \"npm run tsc:w\"",
     "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "start": "tsc && node-lambda run --handler build/index.handler --configFile .env.local",
-    "package": "npm run clean && npm run tsc && TMPDIR=/tmp node-lambda package --environment production",
-    "clean": "rm -r dist"
+    "tsc:w": "tsc -w"
   },
   "author": "",
   "license": "ISC",
@@ -18,7 +15,6 @@
     "googleapis": "^14.1.0"
   },
   "devDependencies": {
-    "node-lambda": "^0.8.11",
     "@types/alexa-sdk": "^1.0.3",
     "@types/node": "< 6.*",
     "concurrently": "^3.1.0",
