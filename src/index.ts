@@ -37,9 +37,23 @@ const handlers: Alexa.Handlers = {
         switch(err){
           case PrinterErrors.USER_CREDENTIAL_REQUIRED:
             this.emit(':tellWithLinkAccountCard', 'Please go to your Alexa app to link your Google account.');
+            break;
           default:
             this.emit(':tell', 'Ups!, something went wrong');
+            break;
         }
       })
-  }
+  },
+  'AMAZON.HelpIntent': function(this: Alexa.Handler){
+    let user: Alexa.SessionUser = this.event.session.user;
+
+    if(!user.accessToken){
+      let message = 'Please go to your Alexa app to link your Google account.'
+      this.emit(':tellWithLinkAccountCard', message);
+    }
+    else {
+      let message = 'You can try with something like, print a mandala or print a guitar.'
+      this.emit(':tell', message);
+    }
+  },
 };
