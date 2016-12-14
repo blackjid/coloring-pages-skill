@@ -72,5 +72,11 @@ const handlers: Alexa.Handlers = {
     else{
       this.emit(':ask', help, helpRepromnt);
     }
+  },
+  'AMAZON.StopIntent': function(this: Alexa.Handler){
+    this.emit(':tell', 'Ok');
+  },
+  'AMAZON.CancelIntent': function(this: Alexa.Handler){
+    this.emit('AMAZON.StopIntent');
   }
 };
