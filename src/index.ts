@@ -14,6 +14,10 @@ export function handler(event, context, callback){
 };
 
 const handlers: Alexa.Handlers = {
+
+  'LaunchRequest': function(){
+    this.emit('AMAZON.HelpIntent');
+  },
   'PrintIntent': function(this: Alexa.Handler){
     let intent: Alexa.Intent = (<Alexa.IntentRequest>this.event.request).intent;
     let user: Alexa.SessionUser = this.event.session.user;
@@ -47,13 +51,26 @@ const handlers: Alexa.Handlers = {
   'AMAZON.HelpIntent': function(this: Alexa.Handler){
     let user: Alexa.SessionUser = this.event.session.user;
 
+    let help = `
+      What would you like to do? For example, you can say: print
+      a <phoneme alphabet="ipa" ph="ˈmandələ">mandala</phoneme>,
+      or print a guitar.
+    `
+    let helpRepromnt = `
+      If you want to relax and have fun coloring, just ask
+      me to print something. For example, you can say: print a
+      landscape.
+    `
+    let linkHelp = `
+      However, you need to link your Google Account so I can find your printers.
+      Please go to your Alexa app to link your Google account.
+    `
+
     if(!user.accessToken){
-      let message = 'Please go to your Alexa app to link your Google account.'
-      this.emit(':tellWithLinkAccountCard', message);
+      this.emit(':tellWithLinkAccountCard', `${help}. ${linkHelp}`);
     }
-    else {
-      let message = 'You can try with something like, print a mandala or print a guitar.'
-      this.emit(':tell', message);
+    else{
+      this.emit(':ask', help, helpRepromnt);
     }
-  },
+  }
 };
