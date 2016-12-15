@@ -1,9 +1,9 @@
-export const PrinterErrors = {
-    USER_CREDENTIAL_REQUIRED: 'USER_CREDENTIAL_REQUIRED',
-    NO_OWNED_PRINTER: 'NO_OWNED_PRINTER',
-    NO_ONLINE_PRINTER: 'NO_ONLINE_PRINTER',
+export const enum PrinterErrors {
+    USER_CREDENTIAL_REQUIRED,
+    NO_OWNED_PRINTER,
+    NO_ONLINE_PRINTER,
 }
 
-export const PageErrors = {
-    NOT_FOUND: 'NOT_FOUND'
+export const enum PageErrors {
+    NOT_FOUND,
 }
