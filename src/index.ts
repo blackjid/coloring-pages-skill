@@ -29,7 +29,11 @@ const handlers: Alexa.Handlers = {
 
       coloringPages.print(searchTerm)
         .then(() => {
-          this.emit(':tell', 'Printing a ' + searchTerm + ', enjoy coloring!');
+          let message = `Printing a ${searchTerm}, enjoy coloring!`;
+          if(Math.random() > .6){
+            message += `Oh! and don't forget to reuse paper that has only been printed on one side`
+          }
+          this.emit(':tell', message);
         })
         .catch((err) => {
           switch(err){
