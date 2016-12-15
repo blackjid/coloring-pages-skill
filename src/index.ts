@@ -22,31 +22,29 @@ const handlers: Alexa.Handlers = {
     let intent: Alexa.Intent = (<Alexa.IntentRequest>this.event.request).intent;
     let user: Alexa.SessionUser = this.event.session.user;
 
-    if(!user.accessToken){
-      this.emit(':tellWithLinkAccountCard', 'Please go to your Alexa app to link your Google account.');
-    }
     // Check search query
-    var searchTerm = intent.slots.drawings.value;
-    if(!searchTerm){
-      this.emit(':tell', 'Sorry, I didn\'t get that');
+    let searchTerm = intent.slots.drawings.value;
+    if(searchTerm){
+      let coloringPages = new ColoringPages(user.accessToken, CSE_CX, CSE_API_KEY);
+
+      coloringPages.print(searchTerm)
+        .then(() => {
+          this.emit(':tell', 'Printing a ' + searchTerm + ', enjoy coloring!');
+        })
+        .catch((err) => {
+          switch(err){
+            case PrinterErrors.USER_CREDENTIAL_REQUIRED:
+              this.emit(':tellWithLinkAccountCard', 'Please go to your Alexa app to link your Google account.');
+              break;
+            default:
+              this.emit(':tell', 'Ups!, something went wrong');
+              break;
+          }
+        });
     }
-
-    let coloringPages = new ColoringPages(user.accessToken, CSE_CX, CSE_API_KEY);
-
-    return coloringPages.print(searchTerm)
-      .then(() => {
-        this.emit(':tell', 'Printing a ' + searchTerm + ', enjoy coloring!');
-      })
-      .catch((err) => {
-        switch(err){
-          case PrinterErrors.USER_CREDENTIAL_REQUIRED:
-            this.emit(':tellWithLinkAccountCard', 'Please go to your Alexa app to link your Google account.');
-            break;
-          default:
-            this.emit(':tell', 'Ups!, something went wrong');
-            break;
-        }
-      })
+    else{
+      this.emit(':ask', 'Sorry, I didn\'t get that, what would like to print?', 'What do you want to print?');
+    }
   },
   'AMAZON.HelpIntent': function(this: Alexa.Handler){
     let user: Alexa.SessionUser = this.event.session.user;
