@@ -98,6 +98,7 @@ declare module google {
         export interface Printer {
             id: string;
             name: string;
+            connectionStatus: string;
             defaultDisplayName: string;
             displayName: string;
             description: string;
@@ -107,7 +108,7 @@ declare module google {
             accessTime: string;
             updateTime: string;
             isTosAccepted: string;
-            tags: string;
+            tags: string[];
             capabilities: string;
             capsFormat: string;
             capsHash: string;

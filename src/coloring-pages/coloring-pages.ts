@@ -75,14 +75,31 @@ export default class ColoringPages {
   private async searchPrinter(){
     return new Promise((resolve, reject) => {
       this.cloudprint.printers.search({}, function(err, resp){
+        if(err == null && typeof resp === 'object'){
+          let ownedPrinters = resp.printers.filter(printer => {
+            return printer.tags.indexOf('^own') > -1
+          })
+          let onlineOwnedPrinters = ownedPrinters.filter(printer => {
+            return printer.connectionStatus == 'ONLINE';
+          })
 
-        if(typeof resp === 'string' && /Error 403/.test(resp)){
-          reject(PrinterErrors.USER_CREDENTIAL_REQUIRED);
-          return;
+          if (ownedPrinters.length === 0){
+            reject(PrinterErrors.NO_OWNED_PRINTER)
+          }
+          else if (onlineOwnedPrinters.length === 0){
+            reject(PrinterErrors.NO_ONLINE_PRINTER)
+          }
+          else{
+            var printer = onlineOwnedPrinters[0]
+            resolve(printer);
+          }
         }
-
-        var printer = resp.printers[0]
-        resolve(printer);
+        else if(typeof resp === 'string' && /Error 403/.test(resp)){
+          reject(PrinterErrors.USER_CREDENTIAL_REQUIRED);
+        }
+        else {
+          reject(err);
+        }
       })
     });
   }

@@ -36,8 +36,14 @@ const handlers: Alexa.Handlers = {
             case PrinterErrors.USER_CREDENTIAL_REQUIRED:
               this.emit(':tellWithLinkAccountCard', 'Please go to your Alexa app to link your Google account.');
               break;
+            case PrinterErrors.NO_ONLINE_PRINTER:
+              this.emit(':tell', 'Your printer is offline. Please turn it on and try again');
+              break;
+            case PrinterErrors.NO_OWNED_PRINTER:
+              this.emit(':tell', 'Sorry, I cannot print, you don\'t have any printers associated with your Google Account');
+              break;
             case PageErrors.NOT_FOUND:
-              this.emit(':tell', `Sorry I couldn't find a page to color a ${searchTerm}`);
+              this.emit(':tell', `Sorry, I couldn't find a ${searchTerm} drawing for you to color`);
               break;
             default:
               this.emit(':tell', 'Ups!, something went wrong');
