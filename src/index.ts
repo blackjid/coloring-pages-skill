@@ -4,7 +4,7 @@ const CSE_API_KEY = process.env['CSE_API_KEY'];
 
 import * as Alexa from 'alexa-sdk';
 import { ColoringPages } from './coloring-pages'
-import { PrinterErrors } from './coloring-pages/printer'
+import { PrinterErrors, PageErrors } from './coloring-pages/errors'
 
 export function handler(event, context, callback){
   var alexa = Alexa.handler(event, context, callback);
@@ -35,6 +35,9 @@ const handlers: Alexa.Handlers = {
           switch(err){
             case PrinterErrors.USER_CREDENTIAL_REQUIRED:
               this.emit(':tellWithLinkAccountCard', 'Please go to your Alexa app to link your Google account.');
+              break;
+            case PageErrors.NOT_FOUND:
+              this.emit(':tell', `Sorry I couldn't find a page to color a ${searchTerm}`);
               break;
             default:
               this.emit(':tell', 'Ups!, something went wrong');

@@ -1,6 +1,6 @@
 import * as google from 'googleapis';
 import '../lib/googleapis/cloudprint';
-import { PrinterErrors } from './printer';
+import { PrinterErrors, PageErrors } from './errors';
 
 const SEARCH_TYPE = 'image';
 const IMAGE_SIZE = 'xlarge';
@@ -60,7 +60,10 @@ export default class ColoringPages {
         if (err) {
           reject(err);
         }
-        if (resp.items && resp.items.length > 0) {
+        else if(resp.items && resp.items.length === 0){
+          reject(PageErrors.NOT_FOUND);
+        }
+        else if (resp.items && resp.items.length > 0) {
           let images = resp.items;
           let image = images[0]
           resolve(image);
