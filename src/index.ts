@@ -76,5 +76,8 @@ const handlers: Alexa.Handlers = {
   },
   'AMAZON.CancelIntent': function(this: Alexa.Handler){
     this.emit('AMAZON.StopIntent');
+  },
+  'Unhandled': function(this: Alexa.Handler) {
+    this.emit(':tell', 'Sorry, I didn\'t get that');
   }
 };
