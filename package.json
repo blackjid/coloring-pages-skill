@@ -6,7 +6,10 @@
   "scripts": {
     "watch": "tsc && concurrently \"npm run tsc:w\"",
     "tsc": "tsc",
-    "tsc:w": "tsc -w"
+    "tsc:w": "tsc -w",
+    "build": "npm run tsc && npm run build:deps && npm run build:package",
+    "build:deps": "cd built && cp -f ../package.json . && npm install --only=production",
+    "build:package": "mkdir -p dist && cd built && zip -r ../dist/coloring-pages.zip ."
   },
   "author": "",
   "license": "ISC",
